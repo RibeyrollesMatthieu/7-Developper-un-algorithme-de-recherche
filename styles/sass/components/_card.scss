@@ -1,0 +1,60 @@
+.card {
+  overflow: hidden;
+
+  &-img-top {
+    height: 180px;
+    object-fit: cover;
+  }
+
+  &-title {
+    align-items: center;
+
+    &, & > * {
+      font-size: 1.125rem;
+    }
+  }
+
+  &-body {
+    font-size: .75rem;
+    line-height: .75rem;
+  }
+
+  &-text {
+    width: 171px;
+    max-width: 171px;
+    font-family: 'Roboto', sans-serif;
+    margin-left: auto;
+
+    overflow: hidden !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    hyphens: auto;
+    height: 6em;
+  }
+
+  &-body__recipe {
+    display: flex;
+    gap: 1rem;
+
+    & > * {
+    }
+  }
+
+  &-header__duration {
+    font-weight: 700;
+    white-space: nowrap;
+    margin-left: 1rem;
+
+    &::before {
+      content: '\f017';
+      margin-right: .25rem;
+      font-weight: 400;
+    }
+  }
+
+  &-ingredients {
+    padding-left: 0;
+    margin-bottom: 0;
+  }
+}

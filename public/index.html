@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Les petits plats</title>
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigi n />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- stylesheets + CDNs -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/styles/app.min.css" />
+    <!-- scripts -->
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+    <header class="[ d-flex flex-column ]">
+      <img class="[ m-auto ]" src="/public/assets/images/logo.svg" alt="Les petis plats" />
+
+      <form class="[ input-group d-flex align-items-center mt ] [ p-3 mt-3 ] [ bg-light rounded ]">
+        <input
+          type="search"
+          class="[ form-control ] [ border-0 bg-transparent ]"
+          placeholder="Rechercher une recette"
+        />
+        <span class="fa fa-solid fa-magnifying-glass [ fs-4 ]"></span>
+      </form>
+    </header>
+
+    <main>
+      <div class="tags [ mt-4 ]"></div>
+      <div class="selects [ d-flex flex-wrap align-items-start gap-2 mt-4 ]">
+        <div class="select select--ingredients[ btn-group ]">
+          <div class="[ btn btn-primary ]">
+            <div class="d-flex flex-between">
+              <input
+                class="[ form-control ] [ border-0 bg-transparent ]"
+                type="search"
+                placeholder="Rechercher un ingrédient"
+                value="Ingrédients"
+              />
+              <button class="select__toggle-button [ btn btn-primary ]">
+                <span class="fa fa-solid fa-chevron-up"></span>
+              </button>
+            </div>
+            <!-- Ingrédients -->
+            <ul class="select__items select__items--ingredients visually-hidden">
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="select select--equipments[ btn-group ]">
+          <div class="[ btn btn-success ]">
+            <div class="d-flex flex-between">
+              <input
+                class="[ form-control ] [ border-0 bg-transparent ]"
+                type="search"
+                placeholder="Rechercher un appareil"
+                value="Appareils"
+              />
+              <button class="select__toggle-button [ btn btn-success ]">
+                <span class="fa fa-solid fa-chevron-up"></span>
+              </button>
+            </div>
+            <!-- Appareils -->
+            <ul class="select__items select__items--equipments visually-hidden">
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="select select--tools[ btn-group ]">
+          <div class="[ btn btn-danger ]">
+            <div class="d-flex flex-between">
+              <input
+                class="[ form-control ] [ border-0 bg-transparent ]"
+                type="search"
+                placeholder="Rechercher un ustensile"
+                value="Ustensiles"
+              />
+              <button class="select__toggle-button [ btn btn-danger ]">
+                <span class="fa fa-solid fa-chevron-up"></span>
+              </button>
+            </div>
+            <!-- Ustensiles -->
+            <ul class="select__items select__items--tools visually-hidden">
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+              <li>lorem</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="recipes-cards [ mt-4 ]"></div>
+    </main>
+  </body>
+
+  <script type="module" src="/public/assets/scripts/index.js"></script>
+</html>

@@ -1,0 +1,15 @@
+.select {
+  &__toggle-button span {
+    pointer-events: none;
+  }
+
+  input {
+    color: #fff !important;
+  }
+
+  &__items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding-left: 0;
+  }
+}

@@ -1,0 +1,21 @@
+@import '/node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import './../reset.scss';
+
+/* components */
+@import './components';
+
+html, body {
+  background-color: #15141b;
+}
+
+body {
+  width: 100%;
+  max-width: 77.5rem;
+  margin: auto;
+  padding: 2rem;
+  font-family: 'Lato', sans-serif;
+}
+
+.icon::before {
+  font-family: "Font Awesome 5 Free";
+}
