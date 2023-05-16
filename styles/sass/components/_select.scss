@@ -4,12 +4,26 @@
   }
 
   input {
-    color: #fff !important;
+    &,
+    &::placeholder {
+      color: #fff !important;
+    }
+
+    &::placeholder {
+      opacity: 0.5;
+    }
   }
 
   &__items {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     padding-left: 0;
+    column-gap: 1rem;
+    text-align: left;
+    max-width: 41.6875rem;
+    max-height: 24.8125rem;
+    overflow-y: scroll;
+    padding: 1rem;
+    text-transform: capitalize;
   }
 }
