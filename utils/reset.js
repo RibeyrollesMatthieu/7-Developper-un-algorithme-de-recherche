@@ -1,4 +1,4 @@
-import { updateAdditionalSearch } from './algorithms.js';
+import { updateAdditionalSearch, updateContentDependingOnTags } from './algorithms.js';
 import {
   addItem,
   clearContainer,
@@ -32,6 +32,10 @@ export const reset = (container, defaultSet, isCard = false) => {
   defaultSet.forEach((item) => addItem(item, container, isCard));
 };
 export const resetRecipes = () => {
+  if (getCurrentTags().length > 0) {
+    updateContentDependingOnTags(false);
+    return;
+  }
   reset(recipesContainer, defaultRecipesSet, true);
   setCurrentRecipes(defaultRecipesSet);
 };

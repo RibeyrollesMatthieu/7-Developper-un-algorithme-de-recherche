@@ -15,6 +15,8 @@ import {
   getCurrentTags,
   getCurrentTools,
   getDefaultRecipesSet,
+  getPreviousUserInputLengthRecipes,
+  getPreviousUserInputRecipes,
   hasUserTypedEquipments,
   hasUserTypedIngredients,
   hasUserTypedRecipes,
@@ -27,6 +29,7 @@ import {
   setPreviousUserInputLengthIngredients,
   setPreviousUserInputLengthRecipes,
   setPreviousUserInputLengthTools,
+  setPreviousUserInputRecipes,
   setUserTypedEquipments,
   setUserTypedIngredients,
   setUserTypedRecipes,
@@ -138,49 +141,78 @@ export const updateRecipesWithTags = (category, tagValue) => {
   updateAdditionalSearch(updatedRecipesSet);
 };
 
-export const updateContentDependingOnTags = () => {
-  const updatedRecipesSet = new Set();
+export const getDefaultRecipesMatchingTags = () => {
+  let updatedRecipesSet = new Set();
 
-  /* TODO */
-  /**
-   * Quand on enlève un tag,
-   * on veut parcourir tout
-   * pour chaque recette, elle doit match avec la recherche utilisateur et les tags restants
-   *
-   *
-   */
+  if (getCurrentTags().length > 0) {
+    for (let recipe of getDefaultRecipesSet()) {
+      let isAddable = false; /* addable if all tags match recipe */
 
-  for (let recipe of getDefaultRecipesSet()) {
-    for (let { label, category } of getCurrentTags()) {
-      switch (category) {
-        case 'ingredient': {
-          for (let ingredient of recipe.ingredients) {
-            // if the recipe has the ingredient, we keep it
-            if (matches(ingredient.ingredient, label)) {
-              updatedRecipesSet.add(recipe);
+      /* we look for applied tags */
+
+      let tagsMatching = 0;
+      for (let { label, category } of getCurrentTags()) {
+        switch (category) {
+          case 'ingredient': {
+            for (let ingredient of recipe.ingredients) {
+              // if the tag and the recipe doesn't match, we remove the recipe
+              if (matches(ingredient.ingredient, label)) {
+                tagsMatching += 1;
+              }
             }
+            break;
           }
-          break;
-        }
-        case 'tool': {
-          for (let tool of recipe.ustensils) {
-            // if the recipe has the ustensil, we keep it
-            if (matches(tool, label)) {
-              updatedRecipesSet.add(recipe);
+          case 'tool': {
+            for (let tool of recipe.ustensils) {
+              if (matches(tool, label)) {
+                tagsMatching += 1;
+              }
             }
+            break;
           }
-          break;
-        }
-        case 'equipment': {
-          // if the recipe has the appliance, we keep it
-          if (matches(recipe.appliance, label)) {
-            updatedRecipesSet.add(recipe);
+          case 'equipment': {
+            if (matches(recipe.appliance, label)) {
+              tagsMatching += 1;
+            }
+            break;
           }
-          break;
+          default:
+            return;
         }
-        default:
-          return;
       }
+
+      if (tagsMatching === getCurrentTags().length) {
+        updatedRecipesSet.add(recipe);
+      }
+    }
+  } else {
+    updatedRecipesSet = getDefaultRecipesSet();
+  }
+
+  return updatedRecipesSet;
+};
+
+export const updateContentDependingOnTags = (
+  filterOnUserInput = getPreviousUserInputLengthRecipes() !== 0
+) => {
+  let updatedRecipesSet = new Set();
+  const input = getPreviousUserInputRecipes();
+
+  updatedRecipesSet = getDefaultRecipesMatchingTags();
+
+  if (filterOnUserInput) {
+    for (let recipe of updatedRecipesSet) {
+      /* we look if any ingredients matches the input */
+      let isIn = false;
+
+      for (let ingredient of recipe.ingredients) {
+        if (matches(ingredient.ingredient, input)) isIn = true;
+      }
+
+      // otherwise, we look in the name and description for a match
+      if (matches(recipe.name, input) || matches(recipe.description, input)) isIn = true;
+
+      if (!isIn) updatedRecipesSet.delete(recipe);
     }
   }
 
@@ -327,6 +359,6 @@ export const recipesAlgorithm = async (input) => {
   // we update the current recipes
   setCurrentRecipes(updatedRecipesSet);
 
-  // we update previous user input length w/ new one
+  setPreviousUserInputRecipes(input);
   setPreviousUserInputLengthRecipes(input.length);
 };

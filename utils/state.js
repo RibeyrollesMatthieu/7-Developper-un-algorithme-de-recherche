@@ -1,6 +1,9 @@
 import { getTagIndex, isPresentInTags } from '../components/Tag.js';
-import { updateAdditionalSearch, updateContentDependingOnTags } from './algorithms.js';
-import { matches } from './globals.js';
+import {
+  getDefaultRecipesMatchingTags,
+  updateAdditionalSearch,
+  updateContentDependingOnTags,
+} from './algorithms.js';
 
 export const defaultIngredientsSet = new Set();
 export const defaultEquipmentsSet = new Set();
@@ -17,6 +20,7 @@ let equipmentsInputTyped = false;
 let toolsInputTyped = false;
 let recipesInputTyped = false;
 
+let previousUserInputRecipes = '';
 let previousUserInputLengthRecipes = 0;
 let previousUserInputLengthIngredients = 0;
 let previousUserInputLengthEquipments = 0;
@@ -31,7 +35,7 @@ export const getCurrentRecipes = (userInputLength) => {
     return currentRecipes;
   }
 
-  return defaultRecipesSet;
+  return getDefaultRecipesMatchingTags();
 };
 export const getCurrentIngredients = (userInputLength) => {
   if (userInputLength > getPreviousUserInputLengthIngredients()) {
@@ -78,6 +82,7 @@ export const hasUserTypedTools = () => toolsInputTyped;
 export const hasUserTypedEquipments = () => equipmentsInputTyped;
 
 export const getCurrentTags = () => currentTags;
+export const getPreviousUserInputRecipes = () => previousUserInputRecipes;
 export const getPreviousUserInputLengthRecipes = () => previousUserInputLengthRecipes;
 export const getPreviousUserInputLengthIngredients = () => previousUserInputLengthIngredients;
 export const getPreviousUserInputLengthEquipments = () => previousUserInputLengthEquipments;
@@ -85,6 +90,7 @@ export const getPreviousUserInputLengthTools = () => previousUserInputLengthTool
 
 // setters
 export const setCurrentRecipes = (newRecipes) => (currentRecipes = newRecipes);
+export const setPreviousUserInputRecipes = (newInput) => (previousUserInputRecipes = newInput);
 export const setCurrentIngredients = (newIngredients) => (currentIngredients = newIngredients);
 export const setCurrentTools = (newTools) => (currentTools = newTools);
 export const setCurrentEquipments = (newEquipments) => (currentEquipments = newEquipments);
