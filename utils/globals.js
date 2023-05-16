@@ -1,6 +1,5 @@
 import { createCard } from '../components/Card.js';
 import { addTag, isPresentInTags } from '../components/Tag.js';
-import { getCurrentTags } from './state.js';
 
 export const ingredientsContainer = document.querySelector('.select__items--ingredients');
 export const equipmentsContainer = document.querySelector('.select__items--equipments');
@@ -22,9 +21,12 @@ export const addItem = (item, container, isCard = false) => {
     const content = e.target.innerHTML;
 
     if (!isPresentInTags(content)) {
-      const tagClass = [...tag.offsetParent.classList].filter((_class) =>
-        _class.includes('btn-')
-      )[0];
+      let tagClass = '';
+
+      for (let i = 0; i < [...tag.offsetParent.classList].length; i += 1) {
+        let _class = [...tag.offsetParent.classList][i];
+        if (_class.includes('btn-')) tagClass = _class;
+      }
 
       let category = '';
       if (container.className?.includes('equipment')) category = 'equipment';
@@ -46,7 +48,8 @@ export const checkInSet = (set, item, isCard = false) => isCard ? set.has(item) 
 export const udpateRecipesDOM = (newRecipes) => {
   clearContainer(recipesContainer);
 
-  for (let recipe of newRecipes) {
+  for (let i = 0; i < newRecipes.size; i += 1) {
+    let recipe = [...newRecipes][i];
     addItem(recipe, recipesContainer, true);
   }
 };
@@ -60,16 +63,25 @@ export const udpateRecipesDOM = (newRecipes) => {
 export const updateFieldsDOM = (newIngredients, newTools, newEquipments) => {
   if (newIngredients) {
     clearContainer(ingredientsContainer);
-    for (let ingredient of newIngredients) addItem(ingredient, ingredientsContainer);
+    for (let i = 0; i < newIngredients.size; i += 1) {
+      let ingredient = [...newIngredients][i];
+      addItem(ingredient, ingredientsContainer);
+    }
   }
 
   if (newTools) {
     clearContainer(toolsContainer);
-    for (let tool of newTools) addItem(tool, toolsContainer);
+    for (let i = 0; i < newTools.size; i += 1) {
+      let tool = [...newTools][i];
+      addItem(tool, toolsContainer);
+    }
   }
 
   if (newEquipments) {
     clearContainer(equipmentsContainer);
-    for (let equipment of newEquipments) addItem(equipment, equipmentsContainer);
+    for (let i = 0; i < newEquipments.size; i += 1) {
+      let equipment = [...newEquipments][i];
+      addItem(equipment, equipmentsContainer);
+    }
   }
 };

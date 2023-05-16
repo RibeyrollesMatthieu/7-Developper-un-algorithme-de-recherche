@@ -50,8 +50,10 @@ export const updateAdditionalSearch = (
   const updatedEquipmentsSet = new Set();
   const updatedToolsSet = new Set();
 
-  // for each matching recipe, we'll update the search+ containers
-  for (let recipe of newRecipes) {
+  for (let i = 0; i < newRecipes.size; i += 1) {
+    /* could use iterator as well here. see https://stackoverflow.com/questions/32539354/how-to-get-the-first-element-of-set-in-es6-ecmascript-2015 */
+    let recipe = [...newRecipes][i];
+
     /* update ingredients */
     if (updateIngredients) {
       for (let ingredient of recipe.ingredients) {
@@ -100,10 +102,13 @@ export const updateRecipesWithTags = (category, tagValue) => {
   const updatedRecipesSet = new Set();
 
   // for each recipe in our current recipes, we'll keep the recipes matching the tag
-  for (let recipe of getCurrentRecipes()) {
+  for (let i = 0; i < getCurrentRecipes().size; i += 1) {
+    let recipe = [...getCurrentRecipes()][i];
+
     switch (category) {
       case 'ingredient': {
-        for (let ingredient of recipe.ingredients) {
+        for (let j = 0; j < recipe.ingredients.length; j += 1) {
+          let ingredient = recipe.ingredients[j];
           // if the recipe has the ingredient, we keep it
           if (matches(ingredient.ingredient, tagValue)) {
             updatedRecipesSet.add(recipe);
@@ -112,7 +117,8 @@ export const updateRecipesWithTags = (category, tagValue) => {
         break;
       }
       case 'tool': {
-        for (let tool of recipe.ustensils) {
+        for (let j = 0; j < recipe.ustensils.length; j += 1) {
+          let tool = recipe.ustensils[j];
           // if the recipe has the ustensil, we keep it
           if (matches(tool, tagValue)) {
             updatedRecipesSet.add(recipe);
@@ -145,16 +151,20 @@ export const getDefaultRecipesMatchingTags = () => {
   let updatedRecipesSet = new Set();
 
   if (getCurrentTags().length > 0) {
-    for (let recipe of getDefaultRecipesSet()) {
+    for (let i = 0; i < getDefaultRecipesSet().size; i += 1) {
+      let recipe = [...getDefaultRecipesSet()][i];
       let isAddable = false; /* addable if all tags match recipe */
 
       /* we look for applied tags */
 
       let tagsMatching = 0;
-      for (let { label, category } of getCurrentTags()) {
+      for (let j = 0; j < getCurrentTags().length; j += 1) {
+        let { label, category } = getCurrentTags()[j];
+
         switch (category) {
           case 'ingredient': {
-            for (let ingredient of recipe.ingredients) {
+            for (let k = 0; k < recipe.ingredients.length; k += 1) {
+              let ingredient = recipe.ingredients[k];
               // if the tag and the recipe doesn't match, we remove the recipe
               if (matches(ingredient.ingredient, label)) {
                 tagsMatching += 1;
@@ -163,7 +173,8 @@ export const getDefaultRecipesMatchingTags = () => {
             break;
           }
           case 'tool': {
-            for (let tool of recipe.ustensils) {
+            for (let k = 0; k < recipe.ustensils; k += 1) {
+              let tool = recipe.ustensils[k];
               if (matches(tool, label)) {
                 tagsMatching += 1;
               }
@@ -201,11 +212,13 @@ export const updateContentDependingOnTags = (
   updatedRecipesSet = getDefaultRecipesMatchingTags();
 
   if (filterOnUserInput) {
-    for (let recipe of updatedRecipesSet) {
+    for (let i = 0; i < updatedRecipesSet.size; i += 1) {
+      let recipe = [...updatedRecipesSet][i];
       /* we look if any ingredients matches the input */
       let isIn = false;
 
-      for (let ingredient of recipe.ingredients) {
+      for (let j = 0; j < recipe.ingredients.length; j += 1) {
+        let ingredient = recipe.ingredients[j];
         if (matches(ingredient.ingredient, input)) isIn = true;
       }
 
@@ -242,7 +255,8 @@ export const equipmentsAlgorithm = async (input) => {
   const updatedEquipmentsSet = new Set();
 
   // we look for matching ingredients
-  for (let equipment of getCurrentEquipments(input.length)) {
+  for (let i = 0; i < getCurrentEquipments(input.length).size; i += 1) {
+    let equipment = [...getCurrentEquipments(input.length)][i];
     if (matches(equipment, input)) updatedEquipmentsSet.add(equipment);
   }
 
@@ -272,7 +286,8 @@ export const toolsAlgorithm = async (input) => {
   const updatedToolsSet = new Set();
 
   // we look for matching ingredients
-  for (let tool of getCurrentTools(input.length)) {
+  for (let i = 0; i < getCurrentTools(input.length).size; i += 1) {
+    let tool = [...getCurrentTools(input.length)][i];
     if (matches(tool, input)) updatedToolsSet.add(tool);
   }
 
@@ -302,7 +317,8 @@ export const ingredientsAlgorithm = async (input) => {
   const updatedIngredientsSet = new Set();
 
   // we look for matching ingredients
-  for (let ingredient of getCurrentIngredients(input.length)) {
+  for (let i = 0; i < getCurrentIngredients(input.length).size; i += 1) {
+    let ingredient = [...getCurrentIngredients(input.length)][i];
     if (matches(ingredient, input)) updatedIngredientsSet.add(ingredient);
   }
 
@@ -339,9 +355,11 @@ export const recipesAlgorithm = async (input) => {
   const updatedRecipesSet = new Set();
 
   // we look for matching recipes
-  for (let recipe of getCurrentRecipes(input.length)) {
+  for (let i = 0; i < getCurrentRecipes(input.length).size; i += 1) {
+    let recipe = [...getCurrentRecipes(input.length)][i];
     /* we look if any ingredients matches the input */
-    for (let ingredient of recipe.ingredients) {
+    for (let j = 0; j < recipe.ingredients.length; j += 1) {
+      let ingredient = recipe.ingredients[j];
       if (matches(ingredient.ingredient, input)) updatedRecipesSet.add(recipe);
       break;
     }
