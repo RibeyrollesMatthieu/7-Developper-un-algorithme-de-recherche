@@ -31,6 +31,6 @@ document
   .querySelector('#select__input--tools')
   .addEventListener('input', (e) => toolsAlgorithm(e.target.value));
 
-document
-  .querySelector('#recipeSearch')
-  .addEventListener('input', (e) => recipesAlgorithm(e.target.value));
+document.querySelector('#recipeSearch').addEventListener('input', (e) => {
+  recipesAlgorithm(e.target.value);
+});
