@@ -27,8 +27,10 @@ import {
 
 export const reset = (container, defaultSet, isCard = false) => {
   clearContainer(container);
+
+  let defaultSetArrayed = [...defaultSet];
   for (let i = 0; i < defaultSet.size; i += 1) {
-    let item = [...defaultSet][i];
+    let item = defaultSetArrayed[i];
 
     addItem(item, container, isCard);
   }

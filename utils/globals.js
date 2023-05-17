@@ -24,8 +24,10 @@ export const addItem = (item, container, isCard = false) => {
     if (!isPresentInTags(content)) {
       let tagClass = '';
 
-      for (let i = 0; i < [...tag.offsetParent.classList].length; i += 1) {
-        let _class = [...tag.offsetParent.classList][i];
+      let parentClasslistArrayed = [...tag.offsetParent.classList];
+
+      for (let i = 0; i < parentClasslistArrayed.length; i += 1) {
+        let _class = parentClasslistArrayed[i];
         if (_class.includes('btn-')) tagClass = _class;
       }
 
@@ -49,8 +51,10 @@ export const checkInSet = (set, item, isCard = false) => isCard ? set.has(item) 
 export const udpateRecipesDOM = (newRecipes) => {
   clearContainer(recipesContainer);
 
+  let newRecipesArrayed = [...newRecipes];
+
   for (let i = 0; i < newRecipes.size; i += 1) {
-    let recipe = [...newRecipes][i];
+    let recipe = newRecipesArrayed[i];
     addItem(recipe, recipesContainer, true);
   }
 };
@@ -64,24 +68,33 @@ export const udpateRecipesDOM = (newRecipes) => {
 export const updateFieldsDOM = (newIngredients, newTools, newEquipments) => {
   if (newIngredients) {
     clearContainer(ingredientsContainer);
+
+    let newIngredientsArrayed = [...newIngredients];
+
     for (let i = 0; i < newIngredients.size; i += 1) {
-      let ingredient = [...newIngredients][i];
+      let ingredient = newIngredientsArrayed[i];
       addItem(ingredient, ingredientsContainer);
     }
   }
 
   if (newTools) {
     clearContainer(toolsContainer);
+
+    let newToolsArrayed = [...newTools];
+
     for (let i = 0; i < newTools.size; i += 1) {
-      let tool = [...newTools][i];
+      let tool = newToolsArrayed[i];
       addItem(tool, toolsContainer);
     }
   }
 
   if (newEquipments) {
     clearContainer(equipmentsContainer);
+
+    let newEquipmentsArrayed = [...newEquipments];
+
     for (let i = 0; i < newEquipments.size; i += 1) {
-      let equipment = [...newEquipments][i];
+      let equipment = newEquipmentsArrayed[i];
       addItem(equipment, equipmentsContainer);
     }
   }

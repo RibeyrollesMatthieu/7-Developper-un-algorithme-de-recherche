@@ -50,13 +50,17 @@ export const updateAdditionalSearch = (
   const updatedEquipmentsSet = new Set();
   const updatedToolsSet = new Set();
 
+  let newRecipesArrayed = [...newRecipes];
+
   for (let i = 0; i < newRecipes.size; i += 1) {
     /* could use iterator as well here. see https://stackoverflow.com/questions/32539354/how-to-get-the-first-element-of-set-in-es6-ecmascript-2015 */
-    let recipe = [...newRecipes][i];
+    let recipe = newRecipesArrayed[i];
 
     /* update ingredients */
     if (updateIngredients) {
-      for (let ingredient of recipe.ingredients) {
+      for (let j = 0; j < recipe.ingredients.length; j += 1) {
+        let ingredient = recipe.ingredients[j];
+
         if (!isPresentInTags(cleanItem(ingredient.ingredient), 'ingredient')) {
           updatedIngredientsSet.add(cleanItem(ingredient.ingredient));
         }
@@ -65,7 +69,8 @@ export const updateAdditionalSearch = (
 
     /* update tools */
     if (updateTools) {
-      for (let tool of recipe.ustensils) {
+      for (let j = 0; j < recipe.ustensils.length; j += 1) {
+        let tool = recipe.ustensils[j];
         if (!isPresentInTags(cleanItem(tool), 'tool')) {
           updatedToolsSet.add(cleanItem(tool));
         }
@@ -101,9 +106,11 @@ export const updateAdditionalSearch = (
 export const updateRecipesWithTags = (category, tagValue) => {
   const updatedRecipesSet = new Set();
 
+  let currentRecipesArrayed = [...getCurrentRecipes()];
+
   // for each recipe in our current recipes, we'll keep the recipes matching the tag
   for (let i = 0; i < getCurrentRecipes().size; i += 1) {
-    let recipe = [...getCurrentRecipes()][i];
+    let recipe = currentRecipesArrayed[i];
 
     switch (category) {
       case 'ingredient': {
@@ -149,10 +156,11 @@ export const updateRecipesWithTags = (category, tagValue) => {
 
 export const getDefaultRecipesMatchingTags = () => {
   let updatedRecipesSet = new Set();
+  let defaultRecipesArrayed = [...getDefaultRecipesSet()];
 
   if (getCurrentTags().length > 0) {
     for (let i = 0; i < getDefaultRecipesSet().size; i += 1) {
-      let recipe = [...getDefaultRecipesSet()][i];
+      let recipe = defaultRecipesArrayed[i];
 
       /* we look for applied tags */
       let tagsMatching = 0;
@@ -209,9 +217,11 @@ export const updateContentDependingOnTags = (
 
   updatedRecipesSet = getDefaultRecipesMatchingTags();
 
+  let updadtedRecipesArrayed = [...updatedRecipesSet];
+
   if (filterOnUserInput) {
     for (let i = 0; i < updatedRecipesSet.size; i += 1) {
-      let recipe = [...updatedRecipesSet][i];
+      let recipe = updadtedRecipesArrayed[i];
       /* we look if any ingredients matches the input */
       let isIn = false;
 
@@ -253,8 +263,10 @@ export const equipmentsAlgorithm = async (input) => {
   const updatedEquipmentsSet = new Set();
 
   // we look for matching ingredients
+  let equipmentArrayed = [...getCurrentEquipments(input.length)];
+
   for (let i = 0; i < getCurrentEquipments(input.length).size; i += 1) {
-    let equipment = [...getCurrentEquipments(input.length)][i];
+    let equipment = equipmentArrayed[i];
     if (matches(equipment, input)) updatedEquipmentsSet.add(equipment);
   }
 
@@ -283,9 +295,11 @@ export const toolsAlgorithm = async (input) => {
   setUserTypedTools(true);
   const updatedToolsSet = new Set();
 
+  let currentToolsArrayed = [...getCurrentTools(input.length)];
+
   // we look for matching ingredients
   for (let i = 0; i < getCurrentTools(input.length).size; i += 1) {
-    let tool = [...getCurrentTools(input.length)][i];
+    let tool = currentToolsArrayed[i];
     if (matches(tool, input)) updatedToolsSet.add(tool);
   }
 
@@ -314,9 +328,10 @@ export const ingredientsAlgorithm = async (input) => {
   setUserTypedIngredients(true);
   const updatedIngredientsSet = new Set();
 
+  let currentIngredientsArrayed = [...getCurrentIngredients(input.length)];
   // we look for matching ingredients
   for (let i = 0; i < getCurrentIngredients(input.length).size; i += 1) {
-    let ingredient = [...getCurrentIngredients(input.length)][i];
+    let ingredient = currentIngredientsArrayed[i];
     if (matches(ingredient, input)) updatedIngredientsSet.add(ingredient);
   }
 
@@ -353,8 +368,9 @@ export const recipesAlgorithm = async (input) => {
   const updatedRecipesSet = new Set();
 
   // we look for matching recipes
+  let currentRecipesArrayed = [...getCurrentRecipes(input.length)];
   for (let i = 0; i < getCurrentRecipes(input.length).size; i += 1) {
-    let recipe = [...getCurrentRecipes(input.length)][i];
+    let recipe = currentRecipesArrayed[i];
     /* we look if any ingredients matches the input */
     for (let j = 0; j < recipe.ingredients.length; j += 1) {
       let ingredient = recipe.ingredients[j];
