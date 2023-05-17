@@ -8,6 +8,7 @@ export const recipesContainer = document.querySelector('.recipes-cards');
 
 export const cleanItem = (item) => item.toLowerCase().trim();
 export const matches = (item, match) => cleanItem(item).includes(cleanItem(match));
+export const exactMatch = (item, match) => cleanItem(item) === cleanItem(match);
 
 export const clearContainer = (container) => container.replaceChildren();
 export const addItem = (item, container, isCard = false) => {

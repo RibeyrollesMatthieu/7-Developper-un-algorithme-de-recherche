@@ -14,9 +14,7 @@ import {
   defaultToolsSet,
   getCurrentRecipes,
   getCurrentTags,
-  hasUserTypedEquipments,
   hasUserTypedRecipes,
-  hasUserTypedTools,
   setCurrentEquipments,
   setCurrentIngredients,
   setCurrentRecipes,
@@ -29,7 +27,11 @@ import {
 
 export const reset = (container, defaultSet, isCard = false) => {
   clearContainer(container);
-  defaultSet.forEach((item) => addItem(item, container, isCard));
+  for (let i = 0; i < defaultSet.size; i += 1) {
+    let item = [...defaultSet][i];
+
+    addItem(item, container, isCard);
+  }
 };
 export const resetRecipes = () => {
   if (getCurrentTags().length > 0) {

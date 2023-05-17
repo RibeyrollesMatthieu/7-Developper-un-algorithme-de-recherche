@@ -66,7 +66,9 @@ export const createCard = (content) => {
     },
   ];
 
-  for (let { ingredient, quantity, unit } of ingredientsList) {
+  for (let i = 0; i < ingredientsList.length; i += 1) {
+    let { ingredient, quantity, unit } = ingredientsList[i];
+
     const ingredientElement = document.createElement('li');
     ingredientElement.innerHTML = `${ingredient}: ${quantity || ''} ${unit || ''}`;
     cardBodyRecipeIngredients.append(ingredientElement);

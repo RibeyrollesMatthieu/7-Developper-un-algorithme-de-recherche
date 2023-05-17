@@ -1,5 +1,5 @@
 import { isPresentInTags } from '../components/Tag.js';
-import { cleanItem, matches, udpateRecipesDOM, updateFieldsDOM } from './globals.js';
+import { cleanItem, exactMatch, matches, udpateRecipesDOM, updateFieldsDOM } from './globals.js';
 import {
   resetAdditonalSearchContainers,
   resetPreviousUserInputLengthEquipments,
@@ -110,7 +110,7 @@ export const updateRecipesWithTags = (category, tagValue) => {
         for (let j = 0; j < recipe.ingredients.length; j += 1) {
           let ingredient = recipe.ingredients[j];
           // if the recipe has the ingredient, we keep it
-          if (matches(ingredient.ingredient, tagValue)) {
+          if (exactMatch(ingredient.ingredient, tagValue)) {
             updatedRecipesSet.add(recipe);
           }
         }
@@ -120,7 +120,7 @@ export const updateRecipesWithTags = (category, tagValue) => {
         for (let j = 0; j < recipe.ustensils.length; j += 1) {
           let tool = recipe.ustensils[j];
           // if the recipe has the ustensil, we keep it
-          if (matches(tool, tagValue)) {
+          if (exactMatch(tool, tagValue)) {
             updatedRecipesSet.add(recipe);
           }
         }
@@ -128,7 +128,7 @@ export const updateRecipesWithTags = (category, tagValue) => {
       }
       case 'equipment': {
         // if the recipe has the appliance, we keep it
-        if (matches(recipe.appliance, tagValue)) {
+        if (exactMatch(recipe.appliance, tagValue)) {
           updatedRecipesSet.add(recipe);
         }
         break;
@@ -153,10 +153,8 @@ export const getDefaultRecipesMatchingTags = () => {
   if (getCurrentTags().length > 0) {
     for (let i = 0; i < getDefaultRecipesSet().size; i += 1) {
       let recipe = [...getDefaultRecipesSet()][i];
-      let isAddable = false; /* addable if all tags match recipe */
 
       /* we look for applied tags */
-
       let tagsMatching = 0;
       for (let j = 0; j < getCurrentTags().length; j += 1) {
         let { label, category } = getCurrentTags()[j];
@@ -166,23 +164,23 @@ export const getDefaultRecipesMatchingTags = () => {
             for (let k = 0; k < recipe.ingredients.length; k += 1) {
               let ingredient = recipe.ingredients[k];
               // if the tag and the recipe doesn't match, we remove the recipe
-              if (matches(ingredient.ingredient, label)) {
+              if (exactMatch(ingredient.ingredient, label)) {
                 tagsMatching += 1;
               }
             }
             break;
           }
           case 'tool': {
-            for (let k = 0; k < recipe.ustensils; k += 1) {
+            for (let k = 0; k < recipe.ustensils.length; k += 1) {
               let tool = recipe.ustensils[k];
-              if (matches(tool, label)) {
+              if (exactMatch(tool, label)) {
                 tagsMatching += 1;
               }
             }
             break;
           }
           case 'equipment': {
-            if (matches(recipe.appliance, label)) {
+            if (exactMatch(recipe.appliance, label)) {
               tagsMatching += 1;
             }
             break;

@@ -8,7 +8,8 @@ export const createRecipesCards = async () => {
   fetch('./../recipes.json')
     .then((data) => data.json())
     .then((recipes) => {
-      for (let recipe of recipes) {
+      for (let i = 0; i < recipes.length; i += 1) {
+        let recipe = recipes[i];
         const card = createCard(recipe);
         container.appendChild(card);
       }

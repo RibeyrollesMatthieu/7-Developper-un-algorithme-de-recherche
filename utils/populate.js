@@ -7,8 +7,6 @@ import {
   defaultToolsSet,
 } from './state.js';
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
 export const populateIngredients = async () => {
   const ingredientsContainer = document.querySelector('.select__items--ingredients');
 
@@ -17,15 +15,17 @@ export const populateIngredients = async () => {
   fetch('./../recipes.json')
     .then((data) => data.json())
     .then(async (recipes) => {
-      for (let recipe of recipes) {
-        for (let ingredient of recipe.ingredients) {
+      for (let i = 0; i < recipes.length; i += 1) {
+        let recipe = recipes[i];
+
+        for (let j = 0; j < recipe.ingredients.length; j += 1) {
+          let ingredient = recipe.ingredients[j];
           if (checkInSet(defaultIngredientsSet, ingredient.ingredient)) {
             continue;
           }
 
           defaultIngredientsSet.add(cleanItem(ingredient.ingredient));
           addItem(ingredient.ingredient, ingredientsContainer);
-          // await sleep(100);
         }
       }
     });
@@ -39,7 +39,9 @@ export const populateEquipments = async () => {
   fetch('./../recipes.json')
     .then((data) => data.json())
     .then(async (recipes) => {
-      for (let recipe of recipes) {
+      for (let i = 0; i < recipes.length; i += 1) {
+        let recipe = recipes[i];
+
         if (checkInSet(defaultEquipmentsSet, recipe.appliance)) {
           continue;
         }
@@ -59,8 +61,11 @@ export const populateTools = async () => {
   fetch('./../recipes.json')
     .then((data) => data.json())
     .then(async (recipes) => {
-      for (let recipe of recipes) {
-        for (let tool of recipe.ustensils) {
+      for (let i = 0; i < recipes.length; i += 1) {
+        let recipe = recipes[i];
+
+        for (let j = 0; j < recipe.ustensils.length; j += 1) {
+          let tool = recipe.ustensils[j];
           if (checkInSet(defaultToolsSet, tool, true)) {
             continue;
           }
@@ -81,7 +86,9 @@ export const populateRecipesCards = async () => {
   fetch('./../recipes.json')
     .then((data) => data.json())
     .then((recipes) => {
-      for (let recipe of recipes) {
+      for (let i = 0; i < recipes.length; i += 1) {
+        let recipe = recipes[i];
+
         if (checkInSet(defaultRecipesSet, recipe, true)) {
           continue;
         }

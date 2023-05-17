@@ -33,11 +33,13 @@ export const addTag = (label, btnClass, category) => {
 export const getTagIndex = (label) => {
   let index = -1;
 
-  getCurrentTags().forEach((tag, i) => {
+  for (let i = 0; i < getCurrentTags().length; i += 1) {
+    let tag = getCurrentTags()[i];
+
     if (matches(tag.label, label)) {
       index = i;
     }
-  });
+  }
 
   return index;
 };
@@ -45,13 +47,15 @@ export const getTagIndex = (label) => {
 export const isPresentInTags = (label, category = undefined) => {
   let isPresent = false;
 
-  getCurrentTags().forEach((tag) => {
+  for (let i = 0; i < getCurrentTags().length; i += 1) {
+    let tag = getCurrentTags()[i];
+
     if (matches(tag.label, label)) {
       if (!category || (category && matches(tag.category, category))) {
         isPresent = true;
       }
     }
-  });
+  }
 
   return isPresent;
 };
