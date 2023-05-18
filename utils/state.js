@@ -4,6 +4,7 @@ import {
   updateAdditionalSearch,
   updateContentDependingOnTags,
 } from './algorithms.js';
+import { matches } from './globals.js';
 
 export const defaultIngredientsSet = new Set();
 export const defaultEquipmentsSet = new Set();
@@ -26,7 +27,7 @@ let previousUserInputLengthIngredients = 0;
 let previousUserInputLengthEquipments = 0;
 let previousUserInputLengthTools = 0;
 
-const currentTags = [];
+let currentTags = [];
 
 // getters
 export const getCurrentRecipes = (userInputLength) => {
@@ -49,7 +50,7 @@ export const getCurrentIngredients = (userInputLength) => {
 
   return defaultIngredientsSet;
 };
-export const getDefaultRecipesSet = () => defaultRecipesSet;
+export const getDefaultRecipesSet = () => structuredClone(defaultRecipesSet);
 
 export const getCurrentTools = (userInputLength) => {
   if (userInputLength > getPreviousUserInputLengthTools()) {
