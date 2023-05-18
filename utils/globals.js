@@ -53,7 +53,7 @@ export const udpateRecipesDOM = (newRecipes) => {
 
   let newRecipesArrayed = [...newRecipes];
 
-  for (let i = 0; i < newRecipes.size; i += 1) {
+  for (let i = 0; i < newRecipesArrayed.length; i += 1) {
     let recipe = newRecipesArrayed[i];
     addItem(recipe, recipesContainer, true);
   }
@@ -71,7 +71,7 @@ export const updateFieldsDOM = (newIngredients, newTools, newEquipments) => {
 
     let newIngredientsArrayed = [...newIngredients];
 
-    for (let i = 0; i < newIngredients.size; i += 1) {
+    for (let i = 0; i < newIngredientsArrayed.length; i += 1) {
       let ingredient = newIngredientsArrayed[i];
       addItem(ingredient, ingredientsContainer);
     }
@@ -82,7 +82,7 @@ export const updateFieldsDOM = (newIngredients, newTools, newEquipments) => {
 
     let newToolsArrayed = [...newTools];
 
-    for (let i = 0; i < newTools.size; i += 1) {
+    for (let i = 0; i < newToolsArrayed.length; i += 1) {
       let tool = newToolsArrayed[i];
       addItem(tool, toolsContainer);
     }
@@ -93,7 +93,7 @@ export const updateFieldsDOM = (newIngredients, newTools, newEquipments) => {
 
     let newEquipmentsArrayed = [...newEquipments];
 
-    for (let i = 0; i < newEquipments.size; i += 1) {
+    for (let i = 0; i < newEquipmentsArrayed.length; i += 1) {
       let equipment = newEquipmentsArrayed[i];
       addItem(equipment, equipmentsContainer);
     }
