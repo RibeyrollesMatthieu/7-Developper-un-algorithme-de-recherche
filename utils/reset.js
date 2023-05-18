@@ -19,6 +19,7 @@ import {
   setCurrentIngredients,
   setCurrentRecipes,
   setCurrentTools,
+  setIsEmptyStateDisplayed,
   setPreviousUserInputLengthEquipments,
   setPreviousUserInputLengthIngredients,
   setPreviousUserInputLengthRecipes,
@@ -41,6 +42,9 @@ export const resetRecipes = () => {
     return;
   }
   reset(recipesContainer, defaultRecipesSet, true);
+  setIsEmptyStateDisplayed(false);
+  document.querySelector('.empty-state')?.remove();
+
   setCurrentRecipes(defaultRecipesSet);
 };
 export const resetIngredients = () => {

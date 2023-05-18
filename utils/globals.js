@@ -1,5 +1,11 @@
 import { createCard } from '../components/Card.js';
+import { createEmptyState } from '../components/EmptyState.js';
 import { addTag, isPresentInTags } from '../components/Tag.js';
+import {
+  getPreviousUserInputLengthRecipes,
+  isEmptyStateDisplayed,
+  setIsEmptyStateDisplayed,
+} from './state.js';
 
 export const ingredientsContainer = document.querySelector('.select__items--ingredients');
 export const equipmentsContainer = document.querySelector('.select__items--equipments');
@@ -50,6 +56,22 @@ export const checkInSet = (set, item, isCard = false) => isCard ? set.has(item) 
  */
 export const udpateRecipesDOM = (newRecipes) => {
   clearContainer(recipesContainer);
+
+  if (newRecipes.size === 0 && !isEmptyStateDisplayed()) {
+    document
+      .querySelector('main')
+      .appendChild(
+        createEmptyState(
+          'Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.'
+        )
+      );
+
+    setIsEmptyStateDisplayed(true);
+    return;
+  }
+
+  document.querySelector('.empty-state')?.remove();
+  setIsEmptyStateDisplayed(false);
 
   let newRecipesArrayed = [...newRecipes];
 

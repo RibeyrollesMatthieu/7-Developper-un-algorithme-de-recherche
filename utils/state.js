@@ -27,6 +27,8 @@ let previousUserInputLengthIngredients = 0;
 let previousUserInputLengthEquipments = 0;
 let previousUserInputLengthTools = 0;
 
+let emptyStateDisplayed = false;
+
 let currentTags = [];
 
 // getters
@@ -81,6 +83,7 @@ export const hasUserTypedRecipes = () => recipesInputTyped;
 export const hasUserTypedIngredients = () => ingredientsInputTyped;
 export const hasUserTypedTools = () => toolsInputTyped;
 export const hasUserTypedEquipments = () => equipmentsInputTyped;
+export const isEmptyStateDisplayed = () => emptyStateDisplayed;
 
 export const getCurrentTags = () => currentTags;
 export const getPreviousUserInputRecipes = () => previousUserInputRecipes;
@@ -114,6 +117,7 @@ export const setPreviousUserInputLengthTools = (newValue) => {
 export const setPreviousUserInputLengthIngredients = (newValue) => {
   previousUserInputLengthIngredients = newValue;
 };
+export const setIsEmptyStateDisplayed = (displayed) => (emptyStateDisplayed = displayed);
 
 // extras
 export const addCurrentTag = (label, category) => currentTags.push({ label, category });
