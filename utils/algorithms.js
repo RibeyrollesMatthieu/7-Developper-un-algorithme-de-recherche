@@ -220,7 +220,7 @@ export const updateContentDependingOnTags = (
   let updadtedRecipesArrayed = [...updatedRecipesSet];
 
   if (filterOnUserInput) {
-    for (let i = 0; i < updatedRecipesSet.size; i += 1) {
+    for (let i = 0; i < updadtedRecipesArrayed.length; i += 1) {
       let recipe = updadtedRecipesArrayed[i];
       /* we look if any ingredients matches the input */
       let isIn = false;
@@ -234,6 +234,7 @@ export const updateContentDependingOnTags = (
       if (matches(recipe.name, input) || matches(recipe.description, input)) isIn = true;
 
       if (!isIn) updatedRecipesSet.delete(recipe);
+      if (isIn) console.log(recipe);
     }
   }
 
