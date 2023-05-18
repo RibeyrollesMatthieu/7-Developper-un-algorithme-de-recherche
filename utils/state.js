@@ -4,7 +4,6 @@ import {
   updateAdditionalSearch,
   updateContentDependingOnTags,
 } from './algorithms.js';
-import { matches } from './globals.js';
 
 export const defaultIngredientsSet = new Set();
 export const defaultEquipmentsSet = new Set();
@@ -15,6 +14,8 @@ let currentIngredients = defaultIngredientsSet;
 let currentEquipments = defaultEquipmentsSet;
 let currentTools = defaultToolsSet;
 let currentRecipes = defaultRecipesSet;
+
+let emptyStateDisplayed = false;
 
 let ingredientsInputTyped = false;
 let equipmentsInputTyped = false;
@@ -89,6 +90,8 @@ export const getPreviousUserInputLengthIngredients = () => previousUserInputLeng
 export const getPreviousUserInputLengthEquipments = () => previousUserInputLengthEquipments;
 export const getPreviousUserInputLengthTools = () => previousUserInputLengthTools;
 
+export const isEmptyStateDisplayed = () => emptyStateDisplayed;
+
 // setters
 export const setCurrentRecipes = (newRecipes) => (currentRecipes = newRecipes);
 export const setPreviousUserInputRecipes = (newInput) => (previousUserInputRecipes = newInput);
@@ -100,6 +103,8 @@ export const setUserTypedRecipes = (value) => (recipesInputTyped = value);
 export const setUserTypedIngredients = (value) => (ingredientsInputTyped = value);
 export const setUserTypedTools = (value) => (toolsInputTyped = value);
 export const setUserTypedEquipments = (value) => (equipmentsInputTyped = value);
+
+export const setIsEmptyStateDisplayed = (displayed) => (emptyStateDisplayed = displayed);
 
 export const setCurrentTags = (newTags) => (currentTags = [...newTags]);
 export const setPreviousUserInputLengthRecipes = (newValue) => {
